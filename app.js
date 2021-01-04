@@ -1,4 +1,4 @@
-import RouterHandler from "router.js"
+import RouterHandler from "/router.js"
 class App {
   constructor() {
     new RouterHandler()
