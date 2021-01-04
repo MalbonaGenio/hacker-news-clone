@@ -11,14 +11,20 @@ export default class RouterHandler {
 
   createRoutes() {
     //stores the possible paths in an array of objects, path is going to indicate the path to the page so we can match it. And page the content of the page itself which is a JS file to display.
-    const routes = [{ path: "/", page: Stories }]
-
-    routes.forEach((route) => {
+    const routes = [
+      { path: "/", page: Stories },
+      { path: "/new", page: Stories },
+      { path: "/ask", page: Stories },
+      { path: "/show", page: Stories }
+    ]
+    //we can either use route so we refer to the routes objects or we can deconstruct the routes object to simplify the sintax in the callback below.
+    routes.forEach(({ path, page }) => {
       //router.on(string, function) - adding a new route
       //with the first argument we define the path and on the function we will run the funtcion in the js file of that path so we call page like a funciton
       router
-        .on(route.path, () => {
-          route.page()
+        .on(path, () => {
+          //we pass the path to the function to use it on each page to display the value of path
+          page(path)
         })
         .resolve()
     })
