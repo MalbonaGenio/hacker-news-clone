@@ -3,7 +3,8 @@ export default function Story(story) {
   return `
   <div class="story">
     <div> 
-      <span class="gray">${story.index}</span>
+      <!-- In the case we don't have a index value, which is the case of the item.js for the comments set to OR '' bc story.index will show an undefined -->
+      <span class="gray">${story.index || ""}</span>
       <span class="upvote">▲</span>
       <a href="${story.url}">${story.title}</a>
       <span>(${story.domain})</span>
