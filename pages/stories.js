@@ -1,3 +1,4 @@
+import Story from "../components/Story.js"
 import view from "../utils/view.js"
 export default async function Stories(path) {
   //need also to wait for  getStories to run before we display any content.
@@ -7,7 +8,10 @@ export default async function Stories(path) {
   view.innerHTML = `<div>
       ${
         hasStories
-          ? stories.map((story) => JSON.stringify(story))
+          ? //we call the Story component function that will format all the data from the api into the html
+            stories
+              .map((story, i) => Story({ ...story, index: i + 1 }))
+              .join("")
           : "No stories"
       } </div>`
 }
