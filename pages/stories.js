@@ -1,5 +1,7 @@
 import Story from "../components/Story.js"
+import baseUrl from "../utils/baseUrl.js"
 import view from "../utils/view.js"
+
 export default async function Stories(path) {
   //need also to wait for  getStories to run before we display any content.
   const stories = await getStories(path)
@@ -33,7 +35,7 @@ async function getStories(path) {
   } else if (isNewRoute) {
     path = "/newest"
   }
-  const response = await fetch(`https://node-hnapi.herokuapp.com${path}`)
+  const response = await fetch(`${baseUrl}${path}`)
   const stories = await response.json()
   return stories
 }

@@ -1,4 +1,5 @@
 import Story from "../components/Story.js"
+import baseUrl from "../utils/baseUrl.js"
 import view from "../utils/view.js"
 
 export default async function Item() {
@@ -39,9 +40,7 @@ export default async function Item() {
 
 async function getStory() {
   const storyId = window.location.hash.split("?id=")[1]
-  const response = await fetch(
-    `https://node-hnapi.herokuapp.com/item/${storyId}`
-  )
+  const response = await fetch(`${baseUrl}/item/${storyId}`)
   const story = response.json()
   return story
 }
