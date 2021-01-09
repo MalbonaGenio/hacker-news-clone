@@ -1,3 +1,4 @@
+import Comment from "../components/Comment.js"
 import Story from "../components/Story.js"
 import baseUrl from "../utils/baseUrl.js"
 import view from "../utils/view.js"
@@ -33,7 +34,7 @@ export default async function Item() {
     <!-- If there is any comments we take the array of objects and convert to string each index -->
     ${
       hasComments
-        ? story.comments.map((comment) => JSON.stringify(comment))
+        ? story.comments.map((comment) => Comment(comment))
         : "No comments"
     }`
 }
