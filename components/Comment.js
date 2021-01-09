@@ -1,6 +1,5 @@
 export default function Comment(comment) {
   const hasNestedComments = comment.comments.length > 0
-  console.log(comment)
   return `
   <div class="nested-comments-${comment.level}">
       <p class="comment-header">
