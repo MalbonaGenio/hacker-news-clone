@@ -1,8 +1,13 @@
 import Story from "../components/Story.js"
+import store from "../store.js"
 import baseUrl from "../utils/baseUrl.js"
+import checkFavorite from "../utils/checkFavorite.js"
 import view from "../utils/view.js"
 
 export default async function Stories(path) {
+  //get the state from the store to get the array with the favorites. As we only need the favorites we can deconstruct the object.
+  const { favorites } = store.getState()
+  console.log(favorites)
   //need also to wait for  getStories to run before we display any content.
   const stories = await getStories(path)
   const hasStories = stories.length > 0
@@ -12,10 +17,30 @@ export default async function Stories(path) {
         hasStories
           ? //we call the Story component function that will format all the data from the api into the html
             stories
-              .map((story, i) => Story({ ...story, index: i + 1 }))
+              //isFavorite will be true or false. If id inside the array of favorites (state) matches the id of one of the stories it will be true. Using that we will dispaly add or remove from favorites in the Story.js
+              .map((story, i) =>
+                Story({
+                  ...story,
+                  index: i + 1,
+                  isFavorite: checkFavorite(favorites, story)
+                })
+              )
               .join("")
           : "No stories"
       } </div>`
+
+  document.querySelectorAll(".favorite").forEach((favoriteButton) => {
+    favoriteButton.addEventListener("click", async function () {
+      //get the data story stored in the data-story. It's in string form so we need to parse it.
+      const story = JSON.parse(this.dataset.story)
+      const isFavorited = checkFavorite(favorites, story)
+      store.dispatch({
+        type: isFavorited ? "REMOVE_FAVORITE" : "ADD_FAVORITE",
+        payload: { favorite: story }
+      })
+      await Stories(path)
+    })
+  })
 }
 
 //take the path argument from Stories and use it to match to the route we want to fetch in the HN api
