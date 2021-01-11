@@ -7,7 +7,6 @@ import view from "../utils/view.js"
 export default async function Stories(path) {
   //get the state from the store to get the array with the favorites. As we only need the favorites we can deconstruct the object.
   const { favorites } = store.getState()
-  console.log(favorites)
   //need also to wait for  getStories to run before we display any content.
   const stories = await getStories(path)
   const hasStories = stories.length > 0

@@ -1,5 +1,6 @@
 import Stories from "./pages/stories.js"
 import Item from "./pages/item.js"
+import Favorites from "./pages/favorites.js"
 // The constructor of the library accepts three arguments - root, useHash and hash. The first one is the main URL of your application.
 // If useHash is set to true then the router uses an old routing approach with hash in the URL.
 const router = new Navigo(null, true, "#")
@@ -17,7 +18,8 @@ export default class RouterHandler {
       { path: "/new", page: Stories },
       { path: "/ask", page: Stories },
       { path: "/show", page: Stories },
-      { path: "/item", page: Item }
+      { path: "/item", page: Item },
+      { path: "/favorites", page: Favorites }
     ]
     //we can either use route so we refer to the routes objects or we can deconstruct the routes object to simplify the sintax in the callback below.
     routes.forEach(({ path, page }) => {
